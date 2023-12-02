@@ -1,6 +1,3 @@
-.vscode/
-*.o
-*.out
 /build
 /.ccls-cache
 /.vscode
