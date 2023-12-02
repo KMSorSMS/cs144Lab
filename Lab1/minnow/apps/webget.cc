@@ -9,8 +9,34 @@ using namespace std;
 
 void get_URL( const string& host, const string& path )
 {
-  cerr << "Function called: get_URL(" << host << ", " << path << ")\n"; // For sticklers: this cerr is OK.
-  cerr << "Warning: get_URL() has not been implemented yet.\n";
+  // printf( "path is : %s\n", path.c_str() );
+  // printf( "host is : %s\n", host.c_str() );
+  // cerr << "Function called: get_URL(" << host << ", " << path << ")\n"; // For sticklers: this cerr is OK.
+  // cerr << "Warning: get_URL() has not been implemented yet.\n";
+  // *** implement get_URL ***
+  // // 1. make the host to ip address, no need to do this.
+  // string hostIP = host;
+  // Address addr( host, "http" );
+  // hostIP = addr.ip();
+
+  // 2. create a socket,we need to use the socket to connect to the server,this is TCP socket
+  TCPSocket socket;//create a TCP socket, havn't connect to the server yet
+  // 3. connect to the server
+  socket.connect( Address( host, "http" ) );//connect to the server
+  // 4. send the request to the server
+  string request = "GET " + path + " HTTP/1.1\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n";
+  socket.write( request );//send the request to the server
+  // 5. read the response from the server
+  //init a buffer to accept the response
+  string responseTemp, response;
+  while (socket.eof() == false)
+  {  
+    socket.read( responseTemp );//read the response from the server
+    response += responseTemp;
+  }
+  
+  // 6. print the response to the terminal
+  cout << response;
 }
 
 int main( int argc, char* argv[] )
